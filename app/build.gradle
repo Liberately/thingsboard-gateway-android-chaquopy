@@ -18,19 +18,31 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            abiFilters "arm64-v8a"
         }
         python {
             pip {
-                install "matplotlib"
+                install("-r", "C:\\Users\\user\\IdeaProjects\\chaquopy-matplotlib\\app\\src\\main\\python\\requirements.txt")
             }
         }
     }
 
+    signingConfigs {
+        android {
+            storeFile file("../platform.jks")
+            storePassword "android"
+            keyAlias "android"
+            keyPassword "android"
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.android
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.android
         }
     }
     compileOptions {
